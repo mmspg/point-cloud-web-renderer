@@ -1,0 +1,47 @@
+html, body {
+	font-family: sans-serif;
+	background-color: #C0C0C0;
+	margin: 0px;
+	overflow: hidden;
+}
+
+#menu {
+	color: #000;
+	font-size: 20px;
+	position: relative;
+	padding:15px 5px 10px 150px;
+	width: 100%;
+	text-align: left;
+	z-index: 100;
+	display:block;
+}
+
+#progress {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #ddd;
+}
+
+#bar {
+	width: 0%;
+	height: 15px;
+	background-color: #4CAF50;
+}
+
+.button {
+	background:#999;
+	position: relative;
+	color:#eee;
+	/*padding:0.2em 0.5em; */
+	cursor:pointer;
+}
+
+.highlight { background:orange; color:#fff; }
+
+span {
+	display: inline-block;
+	width: 60px;
+	float: left;
+	text-align: center;
+}

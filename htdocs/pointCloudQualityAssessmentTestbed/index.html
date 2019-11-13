@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<title>three.js webgl - PCD</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+
+	<body>
+
+		<!-- divs definition -->
+		<div id="container"> </div>
+
+		<div class="text" align="center" >
+			<canvas id="textA"></canvas>
+			<canvas id="textB"></canvas>
+		</div>
+
+		<div id="renderer" align="center" >
+			<canvas id="canvasA"></canvas>
+			<canvas id="canvasB"></canvas>
+			<canvas style="display:none" id="canvasC"></canvas>
+		</div>
+
+		<div id="menu">
+			How would you rate the level of impairment of the distorted content with respect to the reference? <br> <br>
+			<!-- <form action=""> -->
+			<input type="radio" id="r5" name="score" value="5" onclick="onSelecting()"> Imperceptible<br>
+			<input type="radio" id="r4" name="score" value="4" onclick="onSelecting()"> Perceptible, but not annoying<br>
+			<input type="radio" id="r3" name="score" value="3" onclick="onSelecting()"> Slightly annoying<br>
+			<input type="radio" id="r2" name="score" value="2" onclick="onSelecting()"> Annoying<br>
+			<input type="radio" id="r1" name="score" value="1" onclick="onSelecting()"> Very annoying <br> <br>
+			<!-- </form> -->
+			<button type="submit" id="button" onclick="onRating()">Submit</button>
+		</div>
+
+		<div id="progress">
+		  	<div id="bar"></div>
+		</div>
+		<!-- end divs definition -->
+
+
+		<!-- begin script loading -->
+		<script src="../three.js/build/three.js"></script>
+		<script src="../three.js/examples/js/loaders/PCDLoader.js"></script>
+		<script src="../three.js/examples/js/loaders/PLYLoader.js"></script>
+		<script src="../three.js/examples/js/controls/OrthographicTrackballControls.js"></script>
+		<script src="../three.js/examples/js/WebGL.js"></script>
+		<script src="../three.js/examples/js/libs/stats.min.js"></script>
+
+		<script type="x-shader/x-vertex" id="vertexshader">
+			attribute float size;
+			varying vec3 vColor;
+			void main() {
+				vColor = color;
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+				gl_PointSize = size * ( 1.0 );
+				gl_Position = projectionMatrix * mvPosition;
+			}
+		</script>
+		<script type="x-shader/x-fragment" id="fragmentshader">
+			varying vec3 vColor;
+			void main() {
+				gl_FragColor = vec4( vColor, 1.0 );
+			}
+		</script>
+		<script src="./js/FileSaver.js"></script>
+		<script src="./js/ioUtils.js"></script>
+		<script src="./js/main.js"></script>
+		<!-- end script loading -->
+	</body>
+</html>
