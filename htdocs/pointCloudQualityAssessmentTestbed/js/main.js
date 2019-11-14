@@ -532,8 +532,8 @@ function closeSession( ){
 // ---------------------------------------------------------------
 window.onload = ( function() {
 	// Check availability of WebGL
-	if ( WEBGL.isWebGLAvailable( ) === false ){
-		document.body.appendChild( WEBGL.getWebGLErrorMessage( ) );
+	if ( THREE.WEBGL.isWebGLAvailable( ) === false ){
+		document.body.appendChild( THREE.WEBGL.getWebGLErrorMessage( ) );
 	}
 
 	readJSON( CONFIG, function( text ){

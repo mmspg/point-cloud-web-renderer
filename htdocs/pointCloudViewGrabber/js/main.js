@@ -23,7 +23,7 @@
 // VARIABLES
 // ===============================================================
 
-var CONFIG = './config/config002.json';
+var CONFIG = './config/config001.json';
 var sessions = [];
 var sessIndex = 0;
 
@@ -325,8 +325,8 @@ function pad(n, width, z) {
 // ---------------------------------------------------------------
 window.onload = ( function() {
 	// Check availability of WebGL
-	if ( WEBGL.isWebGLAvailable( ) === false ){
-		document.body.appendChild( WEBGL.getWebGLErrorMessage( ) );
+	if ( THREE.WEBGL.isWebGLAvailable( ) === false ){
+		document.body.appendChild( THREE.WEBGL.getWebGLErrorMessage( ) );
 	}
 
 	readJSON( CONFIG, function( text ){
