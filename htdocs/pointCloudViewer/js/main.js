@@ -26,7 +26,7 @@
 var CONFIG = './config/config001.json';
 var models = [];
 var modelIndex = 0;
-
+var randView = true;
 
 
 // ===============================================================
@@ -69,7 +69,7 @@ function initializeScene( ){
 
 	// Initialize scene
 	scene = new THREE.Scene( );
-	scene.background = new THREE.Color( 0xC0C0C0 );
+	scene.background = new THREE.Color( Number( sceneColor ) );
 
 	// Initialize renderer
 	renderer = new THREE.WebGLRenderer( {
@@ -177,7 +177,7 @@ function renderModels( ){
 		updateModelScaling( );
 
 		// Initialize camera position; if argument == "true", randomly
-		initializeCameraParameters( true );
+		initializeCameraParameters( randView );
 
 		// Add controls event listener
 		controls.addEventListener( 'change', onPositionChange );
@@ -223,7 +223,7 @@ function initializeCameraParameters( randomize ){
 		phi = 0;
 	}
 
-	pointcloud.geometry.computeBoundingSphere();
+	pointcloud.geometry.computeBoundingSphere( );
 	var radius = 2 * pointcloud.geometry.boundingSphere.radius;
 
 	var x = radius * Math.sin( theta ) * Math.cos( phi );
@@ -266,7 +266,7 @@ function onPositionChange ( ev ) {
 function onKeyPress( e ) {
 	if ( e.code == 'KeyR' ){
 		controls.reset( );
-		initializeCameraParameters( true );
+		initializeCameraParameters( randView );
 	}
 
 	if ( e.code == 'KeyS' ){
@@ -275,7 +275,7 @@ function onKeyPress( e ) {
 
 	if ( e.code == 'KeyH' ){
 		setControls( );
-		initializeCameraParameters( true );
+		initializeCameraParameters( randView );
 		controls.addEventListener( 'change', onPositionChange );
 	}
 }
@@ -297,9 +297,10 @@ function onPressingButton( ){
 
 function closeSession( ){
 	scene.remove( pointcloud );
-	renderer.clear()
+	renderer.clear( )
 	canvas.style.display = 'none';
 	document.getElementById( 'menu' ).style.display = 'none';
+	alert("The preview has finished! No more models to display!");
 }
 
 
@@ -308,10 +309,17 @@ function closeSession( ){
 // Document Ready
 // ---------------------------------------------------------------
 
-window.onload = ( function() {
+window.onload = ( function( ) {
 	// Check availability of WebGL
-	if ( THREE.WEBGL.isWebGLAvailable( ) === false ){
-		document.body.appendChild( THREE.WEBGL.getWebGLErrorMessage( ) );
+	if ( THREE.REVISION == '110' ){
+		if ( THREE.WEBGL.isWebGLAvailable( ) === false ){
+			document.body.appendChild( THREE.WEBGL.getWebGLErrorMessage( ) );
+		}
+	}
+	else if ( THREE.REVISION == '97' ){
+		if ( WEBGL.isWebGLAvailable( ) === false ){
+			document.body.appendChild( WEBGL.getWebGLErrorMessage( ) );
+		}
 	}
 
 	readJSON( CONFIG, function( text ){
@@ -320,6 +328,8 @@ window.onload = ( function() {
 		pathToAssets = config.path.assets;
 		pathToModels = config.path.models;
 		pathToMetadata = config.path.metadata;
+
+		sceneColor = config.sceneColor;
 
 		rendererWidth = config.renderer.width;
 		rendererHeight = config.renderer.height;
@@ -362,4 +372,4 @@ window.onload = ( function() {
 			getAspectRatioErrorMessage( );
 		}
 	});
-})();
+})( );

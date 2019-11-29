@@ -23,14 +23,14 @@ Information related to a model, the rendering parameters, the viewing conditions
 
 ### Dependencies
 
-- The three.js library is a dependency of the software. The necessary scripts are included in the **thirdParty** folder.
+- The three.js library is a dependency of the software. The necessary scripts are included in the **thirdParty** folder. Note that two different versions are provided (r97 and r110). The authors developed and used the software based on three.js-r97. Although the software is now compliant to a later version, namely three.js-r110, no extensive experimentation and testing has been conducted.
 
 - In order to load external files (i.e., models, meta-data, config files, etc.) in the renderer and avoid browsers' security restrictions, you should [run the software from a local web server](https://threejs.org/docs/index.html#manual/en/introduction/How-to-run-things-locally).
 
 
 ### Reproducibility
 
-The authors used Google Chrome browser and [MAMP](https://www.mamp.info/en/) local  web server environment in the context of [1]. For more information about the selected viewing conditions and rendering parameters (i.e., rendering mode, canvas size, screen resolution, etc.), the reader can refer to [1].
+The software ran on top of three.js-r97 and the authors used Google Chrome browser with [MAMP](https://www.mamp.info/en/) local web server environment in the context of [1]. For more information about the selected viewing conditions and rendering parameters (i.e., rendering mode, canvas size, screen resolution, etc.), the reader can refer to [1].
 
 
 ### Conditions of use

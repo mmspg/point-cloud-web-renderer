@@ -28,7 +28,6 @@ var sessions = [];
 var sessIndex = 0;
 
 
-
 // ===============================================================
 // FUNCTIONS
 // ===============================================================
@@ -45,7 +44,7 @@ function initializeScene( ){
 
 	// Initialize scene
 	scene = new THREE.Scene( );
-	scene.background = new THREE.Color( 0xC0C0C0 );
+	scene.background = new THREE.Color( Number( sceneColor ) );
 
 	// Initialize renderer
 	renderer = new THREE.WebGLRenderer( {
@@ -75,6 +74,8 @@ function setSession( ){
 			rendererWidth = data.renderer.width;
 			rendererHeight = data.renderer.height;
 
+			sceneColor = data.scene_background;
+
 			user_id = data.user_id;
 			stimuli_id = data.stimuli_id;
 			user_score = data.user_score;
@@ -99,6 +100,8 @@ function setSession( ){
 		});
 	}
 	else{
+		sceneColor = sessions[ sessIndex ].sceneColor;
+
 		rendererWidth = sessions[ sessIndex ].renderer.width;;
 		rendererHeight = sessions[ sessIndex ].renderer.height;;
 
@@ -325,8 +328,15 @@ function pad(n, width, z) {
 // ---------------------------------------------------------------
 window.onload = ( function() {
 	// Check availability of WebGL
-	if ( THREE.WEBGL.isWebGLAvailable( ) === false ){
-		document.body.appendChild( THREE.WEBGL.getWebGLErrorMessage( ) );
+	if ( THREE.REVISION == '110' ){
+		if ( THREE.WEBGL.isWebGLAvailable( ) === false ){
+			document.body.appendChild( THREE.WEBGL.getWebGLErrorMessage( ) );
+		}
+	}
+	else if ( THREE.REVISION == '97' ){
+		if ( WEBGL.isWebGLAvailable( ) === false ){
+			document.body.appendChild( WEBGL.getWebGLErrorMessage( ) );
+		}
 	}
 
 	readJSON( CONFIG, function( text ){

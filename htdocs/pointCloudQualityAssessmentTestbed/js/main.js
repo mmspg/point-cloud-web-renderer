@@ -26,7 +26,7 @@
 var CONFIG = './config/config001.json';
 var models = [];
 var modelIndex = 0;
-
+var randView = true;
 
 
 // ===============================================================
@@ -94,12 +94,12 @@ function initializeScene( ){
 	ctxDist.fillText( "Distorted", rendererWidth / 2, 30 );
 
 	// Set text for the end of the session
-	canvasExit.width = 2 * rendererWidth;
-	canvasExit.height = 2 * rendererHeight;
+	canvasExit.width = window.innerWidth;
+	canvasExit.height = window.innerHeight;
 	var ctxExit = canvasExit.getContext( "2d" );
-	ctxExit.font = "20px Arial";
+	ctxExit.font = "25px Arial";
 	ctxExit.textAlign = "center";
-	ctxExit.fillText( "The session is finished. Thank you for your participation!", rendererWidth, rendererHeight / 2 );
+	ctxExit.fillText( "The session is finished. Thank you for your participation!", canvasExit.width / 2, canvasExit.height / 4 );
 
 	// Set camera
 	camera = new THREE.OrthographicCamera( cameraLeft, cameraRight, cameraTop, cameraBottom, cameraNear, cameraFar );
@@ -110,9 +110,9 @@ function initializeScene( ){
 
 	// Initialize scenes
 	sceneRef = new THREE.Scene( );
-	sceneRef.background = new THREE.Color( 0xC0C0C0 );
+	sceneRef.background = new THREE.Color( Number( sceneColor ) );
 	sceneDist = new THREE.Scene( );
-	sceneDist.background = new THREE.Color( 0xC0C0C0 );
+	sceneDist.background = new THREE.Color( Number( sceneColor ) );
 
 	// Initialize renderers
 	rendererRef = new THREE.WebGLRenderer( {
@@ -267,7 +267,7 @@ function renderModels( ){
 			updateModelsScaling( );
 
 			// Update camera parameters
-			initializeCameraParameters( true );
+			initializeCameraParameters( randView );
 
 			// Add controls event listener
 			controls.addEventListener( 'change', onPositionChange );
@@ -328,7 +328,7 @@ function initializeCameraParameters( randomize ){
 		phi = 0;
 	}
 
-	pointcloudRef.geometry.computeBoundingSphere();
+	pointcloudRef.geometry.computeBoundingSphere( );
 	var radius = 2 * pointcloudRef.geometry.boundingSphere.radius;
 
 	var x = radius * Math.sin( theta ) * Math.cos( phi );
@@ -393,9 +393,9 @@ function updateLogInteractionData( ){
 		top: camera.top,
 		near: camera.near,
 		far: camera.far,
-		up: camera.up.toArray(),
+		up: camera.up.toArray( ),
 		zoom: camera.zoom,
-		matrix: camera.matrix.toArray()
+		matrix: camera.matrix.toArray( )
 	};
 	timestamps.push( Date.now( ) );
 	logInteractions.push( cam );
@@ -406,7 +406,7 @@ function updateLogInteractionData( ){
 function onKeyPress( e ) {
 	if ( e.code == "KeyR" ){
 		controls.reset( );
-		initializeCameraParameters( true );
+		initializeCameraParameters( randView );
 	}
 
 	// if ( e.code == "KeyS" ){
@@ -415,7 +415,7 @@ function onKeyPress( e ) {
 
 	if ( e.code == "KeyH"){
 		setControls( );
-		initializeCameraParameters( true );
+		initializeCameraParameters( randView );
 		controls.addEventListener( 'change', onPositionChange );
 	}
 }
@@ -493,6 +493,7 @@ function storeRecordings( ){
    	reference: {name:fileNameRef, voxelized:isVoxelizedRef, geomResolution:geomResolutionRef, splatScalingFactor:splatScalingFactorRef.toFixed(3), splatType:splatType, pointSize:pointSizeRef, side:sideRef},
    	distorted: {name:fileNameDist, voxelized:isVoxelizedDist, geomResolution:geomResolutionDist, splatScalingFactor:splatScalingFactorDist.toFixed(3), splatType:splatType, pointSize:pointSizeDist, side:sideDist},
 		camera: {left:camera.left, right:camera.right, bottom:camera.bottom, top:camera.top, near:camera.near, far:camera.far},
+		scene_background: sceneColor,
    	user_interactivity: recInteractivity,
    	renderer: {width:rendererWidth, height:rendererHeight}
 	};
@@ -507,22 +508,19 @@ function closeSession( ){
 	sceneRef.remove( pointcloudRef );
   sceneDist.remove( pointcloudDist );
 
-	sceneRef.remove( pointcloudRef );
-  sceneDist.remove( pointcloudDist );
-
 	var ctxRef = textRef.getContext( "2d" );
 	ctxRef.clearRect(0, 0, textRef.width, textRef.height)
 
 	var ctxDist = textDist.getContext( "2d" );
 	ctxDist.clearRect(0, 0, textDist.width, textDist.height)
 
-	rendererRef.clear()
-	rendererDist.clear()
+	rendererRef.clear( );
+	rendererDist.clear( );
 
 	canvasRef.style.display = "none";
 	canvasDist.style.display = "none";
 	document.getElementById( "menu" ).style.display = "none";
-	canvasExit.style.display = "initial";
+	canvasExit.style.display = "block";
 }
 
 
@@ -530,10 +528,17 @@ function closeSession( ){
 // ---------------------------------------------------------------
 // Document Ready
 // ---------------------------------------------------------------
-window.onload = ( function() {
+window.onload = ( function( ) {
 	// Check availability of WebGL
-	if ( THREE.WEBGL.isWebGLAvailable( ) === false ){
-		document.body.appendChild( THREE.WEBGL.getWebGLErrorMessage( ) );
+	if ( THREE.REVISION == '110' ){
+		if ( THREE.WEBGL.isWebGLAvailable( ) === false ){
+			document.body.appendChild( THREE.WEBGL.getWebGLErrorMessage( ) );
+		}
+	}
+	else if ( THREE.REVISION == '97' ){
+		if ( WEBGL.isWebGLAvailable( ) === false ){
+			document.body.appendChild( WEBGL.getWebGLErrorMessage( ) );
+		}
 	}
 
 	readJSON( CONFIG, function( text ){
@@ -542,6 +547,8 @@ window.onload = ( function() {
 		pathToAssets = config.path.assets;
 		pathToModels = config.path.models;
 		pathToMetadata = config.path.metadata;
+
+		sceneColor = config.sceneColor;
 
 		rendererWidth = config.renderer.width;
 		rendererHeight = config.renderer.height;
@@ -586,4 +593,4 @@ window.onload = ( function() {
 			getAspectRatioErrorMessage( );
 		}
 	});
-})();
+})( );

@@ -34,9 +34,16 @@ function loadPointCloud( fileName, splatType, pixelsPerPoint, shaderMaterial, co
     var sizes = new Float32Array( new Array( len ).fill( 1 ) );
 
     var geometry = new THREE.BufferGeometry( );
-    geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
-    geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
-    geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( 35048 ) ); // ENUM for DynamicDrawUsage (i.e., instead of setDynamic( true ))
+    if ( THREE.REVISION == '110' ){
+      geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
+      geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+      geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( 35048 ) ); // ENUM for DynamicDrawUsage (i.e., instead of setDynamic( true ))
+    }
+    else if ( THREE.REVISION == '97' ){
+      geometry.addAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
+      geometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+      geometry.addAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setDynamic( true ) );
+    }
 
     pointcloud = new THREE.Points( geometry, shaderMaterial );
   }
