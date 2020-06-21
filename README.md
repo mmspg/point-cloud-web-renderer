@@ -14,10 +14,10 @@ Additional folders:
 - **assets**: Contains two sub-folders, namely, models and pointsize. The former contains the point cloud models under inspection, while the latter carries meta-data files related to the points size of each model.
 - **thirdParty**: External libraries that the software depends on (i.e., dependencies).
 
-Information related to a model, the rendering parameters, the viewing conditions, and interactivity settings can be adjusted through configuration files in each application. Examples of usage are provided. Below, a screenshot of the quality assessment testbed used in [1] is illustrated:
+Information related to a model, the rendering parameters, the viewing conditions, and interactivity settings can be adjusted through configuration files in each application. Examples of usage are provided.
 
 ![alt text](/docs/testbed.png)
-*\*The depicted point cloud is re-distributed within the **[M-PCCD](https://www.epfl.ch/labs/mmspg/downloads/quality-assessment-for-point-cloud-compression)** dataset (original model source: [link](https://sketchfab.com/3d-models/amphoriskos-clean-point-cloud-85cba491e0a84ce58dc4a75715073ad2), creator: [Megan Bystricky](https://sketchfab.com/meganbystricky), license: [CC Attribution](https://creativecommons.org/licenses/by/4.0/)).*
+*\*Example of the subjective quality assessment testbed. The depicted point cloud is part of the [**M-PCCD**](https://www.epfl.ch/labs/mmspg/downloads/quality-assessment-for-point-cloud-compression) dataset (original model source: [link](https://sketchfab.com/3d-models/amphoriskos-clean-point-cloud-85cba491e0a84ce58dc4a75715073ad2), creator: [Megan Bystricky](https://sketchfab.com/meganbystricky), license: [CC Attribution](https://creativecommons.org/licenses/by/4.0/)).*
 
 
 ### Dependencies
@@ -42,4 +42,4 @@ If you wish to use this software in your research, we kindly ask you to cite [1]
 
 ### References
 
-[1] Alexiou, E., Viola, I., Borges, T., Fonseca, T., De Queiroz, R., & Ebrahimi, T. (2019). [A comprehensive study of the rate-distortion performance in MPEG point cloud compression](https://infoscience.epfl.ch/record/272124). APSIPA Transactions on Signal and Information Processing, 8, E27. doi:10.1017/ATSIP.2019.20
+[1] Alexiou, E., Viola, I., Borges, T., Fonseca, T., De Queiroz, R., & Ebrahimi, T. (2019). [A comprehensive study of the rate-distortion performance in MPEG point cloud compression](https://infoscience.epfl.ch/record/272124). *APSIPA Transactions on Signal and Information Processing, 8*, E27. doi: [10.1017/ATSIP.2019.20](http://doi.org/10.1017/ATSIP.2019.20)
