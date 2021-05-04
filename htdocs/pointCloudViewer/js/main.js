@@ -311,7 +311,7 @@ function closeSession( ){
 
 window.onload = ( function( ) {
 	// Check availability of WebGL
-	if ( THREE.REVISION == '110' ){
+	if ( THREE.REVISION == '110' || THREE.REVISION == '128' ){
 		if ( THREE.WEBGL.isWebGLAvailable( ) === false ){
 			document.body.appendChild( THREE.WEBGL.getWebGLErrorMessage( ) );
 		}

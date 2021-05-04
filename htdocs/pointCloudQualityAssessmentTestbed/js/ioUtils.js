@@ -34,7 +34,7 @@ function loadPointCloud( fileName, splatType, pixelsPerPoint, shaderMaterial, co
     var sizes = new Float32Array( new Array( len ).fill( 1 ) );
 
     var geometry = new THREE.BufferGeometry( );
-    if ( THREE.REVISION == '110' ){
+    if ( THREE.REVISION == '110' || THREE.REVISION == '128' ){
       geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
       geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
       geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ).setUsage( 35048 ) ); // ENUM for DynamicDrawUsage (i.e., instead of setDynamic( true ))
