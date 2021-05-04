@@ -22,7 +22,7 @@ Information related to a model, the rendering parameters, the viewing conditions
 
 ### Dependencies
 
-The [three.js]([https://threejs.org/](https://threejs.org/)) library is a dependency of the software. The necessary scripts are included in the **thirdParty** folder. Note that two different versions are provided (r97 and r110). The authors developed and used the software based on three.js-r97. Although the software is now compliant to a later version, namely three.js-r110, no extensive experimentation and testing has been conducted.
+The [three.js]([https://threejs.org/](https://threejs.org/)) library is a dependency of the software. The necessary scripts are included in the **thirdParty** folder. Note that only one version is provided in the most recent commit (r128). The authors developed and used the software based on an earlier version, namely three.js-r97. In order to access this version, please refer to the first release (v1.0). Although the software is now compliant to a later version, namely three.js-r128, no extensive experimentation and testing has been conducted.
 
 
 ### Same-origin policy
